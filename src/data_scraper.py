@@ -6,6 +6,8 @@ import json
 import html
 import re
 from bs4 import BeautifulSoup
+import janitor
+
 
 
 def download_data_file(dir_path : str):
@@ -51,7 +53,7 @@ def html_to_csv(path_to_html):
 
 
 
-    dataFrame = pd.DataFrame(data = data, columns = list_header)
+    dataFrame = pd.DataFrame(data = data, columns = list_header).clean_names()
     dataFrame.to_csv('data/player_stats.csv')
 
 download_data_file("data/")
