@@ -11,6 +11,7 @@ class Tree_node:
             setattr(self, label, attribs[i])
 
 class Tree:
+    
     def __init__(self):
         self.root = None
 
@@ -29,7 +30,21 @@ class Tree:
                     node.right = Tree_node(data_str)
                 else:
                     self.insert(node.right, data_str)
+    
+    def search(self, node, data_str):
+        name = data_str.split(",", 1)[0]
+        if node is None or node.player == name:
+            return node
+        if name < node.player:
+            return self.searce(node.left, data_str)
+        else:
+            return self.search(node.right, data_str)
+    
+    def DFS(self):
+        '''need to implament'''
 
+    def BFS(self):
+        '''need to implament'''
 
 # x = Tree_node("1,Jonathan Taylor,IND,RB,26,7,7,0,0,0,0,0,131,697,5.32,10,25,23,185,8.04,1,0,0,11,1,,156,179.2,185.2,167.7,92,1,1")
 
