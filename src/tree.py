@@ -39,6 +39,14 @@ class Tree:
             return self.searce(node.left, data_str)
         else:
             return self.search(node.right, data_str)
+        
+    def search_by_name(self, node, name):
+        if node is None or node.player == name:
+            return node
+        if name < node.player:
+            return self.searce(node.left, name)
+        else:
+            return self.search(node.right, name)
     
     def DFS(self):
         '''need to implament'''
