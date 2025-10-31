@@ -9,11 +9,12 @@ from frontend_utils import (
     clean_name, stat_tiles_single, build_single_table, build_compare_table, KEY_STATS
 )
 from compare_utils import prototype_recommendation
+import src.data_scraper as scraper
 
 # Streamlit page setup
-st.set_page_config(page_title="Fantasy Football Player Comparison", page_icon="🏈", layout="wide")
-st.title("🏈 Fantasy Football Player Comparison")
-
+st.set_page_config(page_title="Fantasy Football Player Comparison", layout="wide")
+st.title("Fantasy Football Player Comparison")
+    
 # Load data (from data/player_stats.csv)
 try:
     df = load_players_df()
@@ -40,6 +41,29 @@ search_strategy = st.sidebar.radio(
     index=0,
     help="Controls how the single-player search traverses the tree.",
 )
+# all_years = [2025 - i for i in range(50)]
+search_year = st.sidebar.selectbox(
+    "Year to search",
+    options= [2025 - i for i in range(56)],
+    index=0,
+    help="Controls what year to search data",
+)
+if "last_year_option" not in st.session_state:
+    print("nothing")
+    st.session_state.last_year_option = search_year
+    scraper.download_data_file("data/",search_year)
+    scraper.html_to_csv("data/player_stats.html")
+    df = load_players_df()
+    build_tree_from_df(df)
+
+# --- Only run expensive operation if radio changed ---
+if search_year != st.session_state.last_year_option:
+    scraper.download_data_file("data/",search_year)
+    scraper.html_to_csv("data/player_stats.html")
+    st.session_state.last_year_option = search_year
+    df = load_players_df()
+    build_tree_from_df(df)
+
 
 # Filtered subset for UI pickers
 filt = df if not picked_positions else df[df["Position"].isin(picked_positions)]
@@ -90,6 +114,7 @@ with c2:
 
 # Streamlit deprecation button
 compare_clicked = st.button("Compare", type="primary", use_container_width=True)
+
 
 # Full player table (filtered subset)
 st.divider()

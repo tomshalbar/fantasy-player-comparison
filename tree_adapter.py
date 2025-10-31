@@ -6,8 +6,9 @@ try:
     from src.tree import Tree, Tree_node
     TREE_AVAILABLE = True
 except Exception:
-    Tree, Tree_node = None, None
-    TREE_AVAILABLE = False
+    # Tree, Tree_node = None, None
+    # TREE_AVAILABLE = False
+    raise("could not find tree decleration")
 
 # Global tree instance
 _tree = None
@@ -42,7 +43,7 @@ def _line_for_node(row: dict) -> str:
     return ",".join(vals)
 
 # Insert into BST comparing by the 'player' field only
-def _safe_insert_by_player(t: "Tree", root: "Tree_node", data_str: str):
+def _safe_insert_by_player(t : Tree, root: Tree_node, data_str: str):
     """
     Insert a node into tree comparing on 'player'
     """
