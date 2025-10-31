@@ -10,17 +10,17 @@ import janitor
 
 
 
-def download_data_file(dir_path : str):
+def download_data_file(dir_path : str, year):
     file_name = "player_stats.html"
     full_file_path = os.path.join(dir_path, file_name)
 
-    url = 'https://www.pro-football-reference.com/years/2025/fantasy.htm#fantasy'
+    url = f'https://www.pro-football-reference.com/years/{year}/fantasy.htm#fantasy'
     response = requests.get(url)
 
     if response.status_code == 200:
         with open(full_file_path, "w") as file:
             file.write(response.text)
-        print("XML file downloaded successfully!")
+        # print("XML file downloaded successfully!")
     else:
         print(f"Error downloading file: {response.status_code}")
 
@@ -56,5 +56,5 @@ def html_to_csv(path_to_html):
     dataFrame = pd.DataFrame(data = data, columns = list_header).clean_names()
     dataFrame.to_csv('data/player_stats.csv')
 
-download_data_file("data/")
+download_data_file("data/",2025)
 html_to_csv("data/player_stats.html")
