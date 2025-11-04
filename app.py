@@ -171,5 +171,5 @@ if compare_clicked:
     st.dataframe(comp, width="stretch")
 
     st.divider()
-    st.subheader("Recommendation (Prototype)")
+    st.subheader("Recommendation: ")
     st.success(prototype_recommendation(player_a, player_b, data_a, data_b))
