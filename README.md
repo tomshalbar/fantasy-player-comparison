@@ -1,5 +1,11 @@
-Run Instructions:
- Clone or download the repository
- Install: pip install streamlit pandas
- Run: streamlit run app.py
- Open your browser to the launched URL
+## Setup and Run Instructions:
+
+1.  Clone or download the repository
+    - git clone https://github.com/tomshalbar/fantasy-player-comparison.git
+2.  Install dependencies
+    - pip install -r requirements.txt
+3.  Type this command in the terminal from root:
+    - streamlit run app.py
+4.  Open your browser to the launched URL
+
+Enjoy!
