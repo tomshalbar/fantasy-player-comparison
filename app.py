@@ -49,7 +49,6 @@ search_year = st.sidebar.selectbox(
     help="Controls what year to search data",
 )
 if "last_year_option" not in st.session_state:
-    print("nothing")
     st.session_state.last_year_option = search_year
     scraper.download_data_file("data/",search_year)
     scraper.html_to_csv("data/player_stats.html")
