@@ -54,7 +54,8 @@ def html_to_csv(path_to_html):
 
 
     dataFrame = pd.DataFrame(data = data, columns = list_header).clean_names()
+    os.remove(path_to_html)
     dataFrame.to_csv('data/player_stats.csv')
 
-download_data_file("data/",2025)
-html_to_csv("data/player_stats.html")
+# download_data_file("data/",2025)
+# html_to_csv("data/player_stats.html")
