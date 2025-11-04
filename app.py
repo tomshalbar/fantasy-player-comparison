@@ -1,15 +1,25 @@
-
 import numpy as np
 import pandas as pd
 import streamlit as st
-
+import os
+import src.data_scraper as scrape
 from data_loader import load_players_df
 from tree_adapter import TREE_AVAILABLE, build_tree_from_df, find_by_name
 from frontend_utils import (
-    clean_name, stat_tiles_single, build_single_table, build_compare_table, KEY_STATS
+   clean_name, stat_tiles_single, build_single_table, build_compare_table, KEY_STATS
 )
 from compare_utils import prototype_recommendation
 import src.data_scraper as scraper
+
+
+if not os.path.isfile('data/player_stats.csv'):
+   try:
+       os.mkdir('data')
+   except:
+       pass
+   scrape.download_data_file("data/",2025)
+   scrape.html_to_csv("data/player_stats.html")
+
 
 # Streamlit page setup
 st.set_page_config(page_title="Fantasy Football Player Comparison", layout="wide")
